@@ -1,9 +1,13 @@
 import express, { response } from 'express';
+import { config } from 'dotenv';
+config();
 import cors from 'cors';
 import { google } from 'googleapis';
-import { config } from 'dotenv';
+import authRoutes from './src/routes/authRoutes.js';
 
-config();
+
+
+
 
 const youtube = google.youtube({
   version: 'v3',

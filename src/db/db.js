@@ -26,4 +26,4 @@ const checkDbConnection = async () => {
 // Run the check when the module is loaded
 checkDbConnection();
 
-export default Pool;
+export default pool;

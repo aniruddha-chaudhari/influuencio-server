@@ -1,9 +1,9 @@
 import express, { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import pool from './db.js'
+import pool from '../db/db.js';
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = 'G$h78!5tYkL@9dF*3';
 const router = express.Router();
 
 export const signup = async (req, res) => {
@@ -39,8 +39,9 @@ export const login = async (req, res) => {
       if (!validPassword) {
         return res.status(401).json({ error: 'Invalid password' });
       }
+      console.log(JWT_SECRET);
   
-      const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '1h' });
+      const token = jwt.sign({ userId: user.id },JWT_SECRET, { expiresIn: '1h' });
       res.json({ message: 'Logged in successfully', token });
     } catch (error) {
       console.error('Login error:', error);
