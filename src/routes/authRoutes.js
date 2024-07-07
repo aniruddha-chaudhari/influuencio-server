@@ -1,14 +1,12 @@
-// src/routes/authRoutes.js
 import express from 'express';
-import { signup, login, getProfile } from '../controllers/authcontroller.js';
-import { verifyToken } from '../middleware/authMiddleware.js';
+import { register, login, logout, dashboard } from '../controllers/authcontroller.js';
+import { isAuthenticated } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.post('/signup', signup);
+router.post('/register', register);
 router.post('/login', login);
-
-// Protected route example
-router.get('/profile', verifyToken, getProfile);
+router.post('/logout', logout);
+router.get('/dashboard', isAuthenticated, dashboard);
 
 export default router;

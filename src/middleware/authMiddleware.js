@@ -1,12 +1,11 @@
-import jwt from 'jsonwebtoken';
-
-export const verifyToken = (req, res, next) => {
-  const token = req.headers['authorization']?.split(' ')[1];
-  if (!token) return res.status(403).json({ error: 'No token provided' });
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) return res.status(401).json({ error: 'Unauthorized' });
-    req.userId = decoded.userId;
+export const isAuthenticated = (req, res, next) => {
+  console.log('Session in isAuthenticated:', req.session);
+  if (req.session.userId) {
+    // Instead of sending a response, just pass the userId to the next middleware
+    req.userId = req.session.userId;
     next();
-  });
+  } else {
+    console.log('Not authenticated, sending 401');
+    res.status(401).json({ message: 'Not authenticated' });
+  }
 };
